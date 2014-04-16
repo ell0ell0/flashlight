@@ -10,8 +10,6 @@ $( document ).ready(function() {
     y: context.canvas.height/2
   };
 
-  var mousePos;
-
   var mousePos = {
       x: 0,
       y: 0
@@ -31,6 +29,27 @@ $( document ).ready(function() {
     x: center.x + vector.x * Math.sin(getRadians(9)),
     y: center.y + vector.y * Math.cos(getRadians(9))
   }
+
+  var beamCenter = {
+    x: (p1.x + p2.x)/2,
+    y: (p1.y + p2.y)/2
+  }
+
+  var perpVector = {
+    x: (-(p2.y - p1.y))/2,
+    y: (p2.x - p1.x)/2
+  }
+
+  var p3 = {
+    x: beamCenter.x + perpVector.x,
+    y: beamCenter.y + perpVector.y,
+  }
+
+  var p4 = {
+    x: beamCenter.x - perpVector.x,
+    y: beamCenter.y - perpVector.y,
+  }
+
 
 
     context.beginPath();
@@ -64,6 +83,26 @@ $( document ).ready(function() {
       y: center.y + vector.y * Math.cos(getRadians(9))
     }
 
+    beamCenter = {
+      x: (p1.x + p2.x)/2,
+      y: (p1.y + p2.y)/2
+    }
+
+    perpVector = {
+      x: (-(p2.y - p1.y))/2,
+      y: (p2.x - p1.x)/2
+    }
+
+    p3 = {
+      x: beamCenter.x + perpVector.x,
+      y: beamCenter.y + perpVector.y,
+    }
+
+    p4 = {
+      x: beamCenter.x - perpVector.x,
+      y: beamCenter.y - perpVector.y,
+    }
+
     eraseBackground();
     context.beginPath();
     context.moveTo(mousePos.x, mousePos.y);
@@ -76,6 +115,18 @@ $( document ).ready(function() {
     context.lineTo(p2.x,p2.y);
     context.fillStyle = "rgba(255, 255, 255, 0.7)";
     context.fill();
+
+    context.moveTo(mousePos.x,mousePos.y);
+    context.lineTo(p3.x,p3.y);
+    context.lineTo(p4.x,p4.y);
+    context.fillStyle = "rgba(255, 255, 255, 0.7)";
+    context.fill();
+
+    context.beginPath();
+    context.arc(beamCenter.x, beamCenter.y, getDist(p1.x, p1.y, p2.x, p2.y)/2, 0, 2 * Math.PI, false);
+    context.fillStyle = "rgba(255, 255, 255, 0.7)";
+    context.fill();
+
   }
 
   // ------------------------------------------------
