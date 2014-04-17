@@ -46,59 +46,64 @@ $( document ).ready(function() {
     y: beamCenter.y - mousePos.y
   }
 
-  //tangents
-
-  var dist, dd, a, b, t, ta, tb;
-
-  dist = {
-    x: beamCenter.x - mousePos.x,
-    y: beamCenter.y - mousePos.y
+ //Calculate Tangents
+  var pointDistance = {
+      x: beamCenter.x - mousePos.x,
+      y: beamCenter.y - mousePos.y,
+      length: function () {
+          return Math.sqrt(this.x * this.x + this.y * this.y)
+      }
   }
 
-  dd = Math.sqrt(dist.x * dist.x + dist.y * dist.y);
-
-  a = Math.asin(radius / dd);
-  b = Math.atan2(dist.y, dist.x);
-
-  t = b - a;
-  ta = { 
-    x:radius * Math.sin(t), 
-    y:radius * -Math.cos(t) 
+  //Alpha
+  var a = Math.asin(radius / pointDistance.length());
+  //Beta
+  var b = Math.atan2(pointDistance.y, pointDistance.x);
+  //Tangent angle
+  var t = b - a;
+  //Tangent points
+  var T1 = {
+      x: beamCenter.x + radius * Math.sin(t),
+      y: beamCenter.y + radius * -Math.cos(t)
   };
-    
+
   t = b + a;
-  tb = { 
-    x:radius * -Math.sin(t), 
-    y:radius * Math.cos(t) 
-  };
-
-  p3 = {
-    x: beamCenter.x + ta.x,
-    y: beamCenter.y + ta.y
+  var T2 = {
+      x: beamCenter.x + radius * -Math.sin(t),
+      y: beamCenter.y + radius * Math.cos(t)
   }
 
-  p4 = {
-    x: beamCenter.x + tb.x,
-    y: beamCenter.y + tb.y
-  }
 
+  context.save();
+
+  eraseBackground();
 
   context.beginPath();
-  context.moveTo(mousePos.x, mousePos.y);
-  context.lineTo(center.x,center.y);
-  context.stroke();
-  
+  context.rect(0,0,context.canvas.width,context.canvas.height);
+  context.fillStyle = "#2CB34A";
+  context.fill();
+
   context.beginPath();
   context.moveTo(mousePos.x,mousePos.y);
-  context.lineTo(p3.x,p3.y);
-  context.lineTo(p4.x,p4.y);
+  context.lineTo(T1.x,T1.y);
+  context.lineTo(T2.x,T2.y);
   context.fillStyle = "rgba(255, 255, 255, 0.7)";
   context.fill();
+
+  context.globalCompositeOperation = 'xor';
 
   context.beginPath();
   context.arc(beamCenter.x, beamCenter.y, radius, 0, 2 * Math.PI, false);
-  context.fillStyle = "rgba(255, 255, 255, 0.7)";
+  context.fillStyle = "#FFF";
   context.fill();
+
+  context.restore();
+
+  context.beginPath();
+  context.arc(beamCenter.x, beamCenter.y, radius, 0, 2 * Math.PI, false);
+  context.fillStyle = "rgba(255, 255, 255, 0.2)";
+  context.fill();
+
 
 
   canvas.onmousemove = function (e) {
@@ -126,57 +131,62 @@ $( document ).ready(function() {
 
     radius = getDist(p1.x, p1.y, p2.x, p2.y)/2;
 
-    dist = {
-      x: beamCenter.x - mousePos.x,
-      y: beamCenter.y - mousePos.y
+    //Calculate Tangents
+    pointDistance = {
+        x: beamCenter.x - mousePos.x,
+        y: beamCenter.y - mousePos.y,
+        length: function () {
+            return Math.sqrt(this.x * this.x + this.y * this.y)
+        }
     }
-
-    dd = Math.sqrt(dist.x * dist.x + dist.y * dist.y);
-
-    a = Math.asin(radius / dd);
-    b = Math.atan2(dist.y, dist.x);
-
+    //Alpha
+    a = Math.asin(radius / pointDistance.length());
+    //Beta
+    b = Math.atan2(pointDistance.y, pointDistance.x);
+    //Tangent angle
     t = b - a;
-    ta = { 
-      x:radius * Math.sin(t), 
-      y:radius * -Math.cos(t) 
+    //Tangent points
+    T1 = {
+        x: beamCenter.x + radius * Math.sin(t),
+        y: beamCenter.y + radius * -Math.cos(t)
     };
-      
+
     t = b + a;
-    tb = { 
-      x:radius * -Math.sin(t), 
-      y:radius * Math.cos(t) 
-    };
-
-      eraseBackground();
-      
-    p3 = {
-      x: beamCenter.x + ta.x,
-      y: beamCenter.y + ta.y
+    T2 = {
+        x: beamCenter.x + radius * -Math.sin(t),
+        y: beamCenter.y + radius * Math.cos(t)
     }
 
-    p4 = {
-      x: beamCenter.x + tb.x,
-      y: beamCenter.y + tb.y
-    }
+    context.save();
 
+    eraseBackground();
 
     context.beginPath();
-    context.moveTo(mousePos.x, mousePos.y);
-    context.lineTo(center.x,center.y);
-    context.stroke();
-    
+    context.rect(0,0,context.canvas.width,context.canvas.height);
+    context.fillStyle = "#2CB34A";
+    context.fill();
+
     context.beginPath();
     context.moveTo(mousePos.x,mousePos.y);
-    context.lineTo(p3.x,p3.y);
-    context.lineTo(p4.x,p4.y);
+    context.lineTo(T1.x,T1.y);
+    context.lineTo(T2.x,T2.y);
     context.fillStyle = "rgba(255, 255, 255, 0.7)";
     context.fill();
+
+    context.globalCompositeOperation = 'xor';
+
+    context.beginPath();
+    context.arc(beamCenter.x, beamCenter.y, radius, 0, 2 * Math.PI, false);
+    context.fillStyle = "#FFF";
+    context.fill();
+
+    context.restore();
 
     context.beginPath();
     context.arc(beamCenter.x, beamCenter.y, radius, 0, 2 * Math.PI, false);
     context.fillStyle = "rgba(255, 255, 255, 0.7)";
     context.fill();
+
 
   }
 
