@@ -7,6 +7,8 @@ $( document ).ready(function() {
 
   var center, mousePos, vector, p1, p2, p3, p4, radius, beamCenter;
 
+  var angle = 18;
+
   center = { 
     x: context.canvas.width/2,
     y: context.canvas.height/2
@@ -23,13 +25,13 @@ $( document ).ready(function() {
   }
 
   p1 = {
-    x: center.x + vector.x * Math.cos(getRadians(9)),
-    y: center.y + vector.y * Math.sin(getRadians(9))
+    x: center.x + vector.x * Math.cos(getRadians(angle)),
+    y: center.y + vector.y * Math.sin(getRadians(angle))
   }
 
   p2 = {
-    x: center.x + vector.x * Math.sin(getRadians(9)),
-    y: center.y + vector.y * Math.cos(getRadians(9))
+    x: center.x + vector.x * Math.sin(getRadians(angle)),
+    y: center.y + vector.y * Math.cos(getRadians(angle))
   }
 
   beamCenter = {
@@ -108,13 +110,13 @@ $( document ).ready(function() {
     }
 
     p1 = {
-      x: center.x + vector.x * Math.cos(getRadians(9)),
-      y: center.y + vector.y * Math.sin(getRadians(9))
+      x: center.x + vector.x * Math.cos(getRadians(angle)),
+      y: center.y + vector.y * Math.sin(getRadians(angle))
     }
 
     p2 = {
-      x: center.x + vector.x * Math.sin(getRadians(9)),
-      y: center.y + vector.y * Math.cos(getRadians(9))
+      x: center.x + vector.x * Math.sin(getRadians(angle)),
+      y: center.y + vector.y * Math.cos(getRadians(angle))
     }
 
     beamCenter = {
