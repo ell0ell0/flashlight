@@ -4,10 +4,12 @@ $( document ).ready(function() {
                   context.canvas.width  = $("#canvas-container").width();
                   context.canvas.height = $("#canvas-container").height();
 
+  canvas.style.webkitFilter = "blur(10px)";
 
   var center, mousePos, vector, p1, p2, p3, p4, radius, beamCenter;
 
   var angle = 18;
+  var blur = 1;
 
   center = { 
     x: context.canvas.width/2,
@@ -79,7 +81,7 @@ $( document ).ready(function() {
   eraseBackground();
 
   context.beginPath();
-  context.rect(0,0,context.canvas.width,context.canvas.height);
+  context.rect(-100,-100,context.canvas.width + 200,context.canvas.height + 200);
   context.fillStyle = "#2CB34A";
   context.fill();
 
@@ -93,6 +95,7 @@ $( document ).ready(function() {
   context.globalCompositeOperation = 'xor';
 
   context.beginPath();
+  context.shadowBlur = 10;
   context.arc(beamCenter.x, beamCenter.y, radius, 0, 2 * Math.PI, false);
   context.fillStyle = "#FFF";
   context.fill();
@@ -162,7 +165,7 @@ $( document ).ready(function() {
     eraseBackground();
 
     context.beginPath();
-    context.rect(0,0,context.canvas.width,context.canvas.height);
+    context.rect(-100,-100,context.canvas.width + 200,context.canvas.height + 200);
     context.fillStyle = "#2CB34A";
     context.fill();
 
