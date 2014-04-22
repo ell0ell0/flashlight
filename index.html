@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!--
+    ==================
+    PAGE-SPECIFIC META
+    ==================
+-->
+
+<title>404</title>
+<meta name="description" content="Front-end architecture for Project Flapjack">
+
+<!-- Explicit favicon link needed for testing. Remove for production. -->
+<link rel="shortcut icon" type="image/x-icon" href="static/img/favicon.ico"/>
+
+<!--
+    ======
+    STYLES
+    ======
+    The number of stylesheets here must be kept to a minimum. Unless adding a significant amount of CSS that is
+    specific to a single page or section of the site, all new styles should be added to src/static/css/main.less.
+-->
+ 
+<!--[if lt IE 9]>      <link rel="stylesheet" href="static/css/ie8.min.css"> <![endif]-->
+<link rel="stylesheet" href="static/css/main.min.css">
+
+<!--
+    ============
+    HEAD SCRIPTS
+    ============
+    The following scripts must be included in the head. DO NOT ADD ANY MORE.
+    All other scripts should go before the closing body tag.
+    If you come across a script that makes a convincing case to be included in
+    the head, then file an issue or PR to discuss including it.
+-->
+<!--[if lt IE 9]>
+    <script src="vendor/html5shiv/html5shiv-printshiv.js"></script>
+<![endif]-->
+<!--[if IE]>
+<style type="text/css">
+    .wrapper {
+       padding: 0px 60px 0px 60px;
+    }
+    .browser_container { 
+      border-left: 1px solid #E3E4E5;
+      border-right: 1px solid #E3E4E5;
+      border-bottom: 1px solid #E3E4E5;
+    }
+</style>
+<![endif]-->
+
+    <script>
+        // Confirm availability of JS and remove no-js class from html
+        var docElement = document.documentElement;
+        docElement.className = docElement.className.replace(/(^|\s)no-js(\s|$)/, '$1$2');
+    </script>
+
+</head>
+  <!--[if lt IE 7]>      <body class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+  <!--[if IE 7]>         <body class="no-js lt-ie9 lt-ie8"> <![endif]-->
+  <!--[if IE 8]>         <body class="no-js lt-ie9"> <![endif]-->
+  <!--[if gt IE 8]><!--> <body class="no-js"> <!--<![endif]-->
+
+
+    <section id="message-container">
+        <div class="wrapper">
+            <div class="message-wrapper">
+                <h1 class="superdisplay">Oh No!</h1>
+                <h3>Who turned off the lights...? Something has gone terribly wrong. The page you were looking for doesn’t exist. Don’t fret though! </h3>
+                <p class="p-sans">Go back to the homepage.</p>
+                <div class="center_button"><a href="http://www.consumerfinance.gov/" class="btn">Homepage</a></div>
+                <p class="p-sans">Or let us know how you got here in the first place, so we can try and prevent this from happening in the future.</p>
+                <div class="center_button"><a href="http://www.consumerfinance.gov/" class="btn">Contact Us</a></div>
+            </div>
+        </div>
+    </section>
+
+    <canvas id="canvas"></canvas>
+
+    <section id="wall-container">
+
+    </section>
+
+    <section id="floor-container">
+        <div class="servers-img">
+            <img alt="server 404" src="static/img/servers.png">
+        </div>
+    </section>
+
+    <section id="ground-container">
+        <div class="foundation"></div>
+        <div class="dirt">
+            <div class="pipes-img">
+                <img alt="underground pipe" src="static/img/pipe.png">
+            </div>
+            <div class="bones-img">
+                <img alt="underground dinosaur bones" src="static/img/bones.png">
+            </div>
+        </div>
+    </section>
+
+
+<!--
+    ============
+    BODY SCRIPTS
+    ============
+    The number of scripts here must be kept to a minimum. Unless adding a significant amount of JS that is
+    specific to a single page or section of the site, all custom JS should be added to src/static/js/app.js.
+-->
+
+<script type="text/javascript" src="static/js/main.js"></script>
+
+</body>
+
+</html>
