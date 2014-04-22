@@ -1,0 +1,36 @@
+{
+  "name": "capital-framework",
+  "version": "0.3.1",
+  "devDependencies": {
+    "font-awesome": "~3.2.1",
+    "html5shiv": "latest",
+    "jquery": "~1.10.1",
+    "normalize-css": "~2.1.2",
+    "stellar": "git://github.com/markdalgleish/stellar.js.git",
+    "respond": "~1.4.2",
+
+    "fj-buttons": "git://github.cfpb.gov/flapjack/fj-buttons.git",
+    "fj-colors": "git://github.cfpb.gov/flapjack/fj-colors.git",
+    "fj-expandables": "git://github.cfpb.gov/flapjack/fj-expandables.git",
+    "fj-forms": "git://github.cfpb.gov/flapjack/fj-forms.git",
+    "cf-grid": "git://github.cfpb.gov/flapjack/fj-grid.git",
+    "fj-pagination": "git://github.cfpb.gov/flapjack/fj-pagination.git",
+    "cf-typography": "git://github.cfpb.gov/flapjack/cf-typography.git"
+  },
+  "exportsOverride": {
+    "fj-*": {
+      "css": "src/**/*.css",
+      "less": "src/**/*.less",
+      "fonts": "src/fonts/*.*",
+      "js": "src/**/*.js"
+    },
+    "cfpb-font-icons": {
+      "css": "src/*.css",
+      "fonts": "static/fonts/*.*"
+    },
+    "font-awesome": {
+      "css": "css/*.css",
+      "fonts": "font/*.*"
+    }
+  }
+}
