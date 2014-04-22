@@ -10770,8 +10770,6 @@ $( document ).ready(function() {
 
   context.save();
 
-  eraseBackground();
-
   context.beginPath();
   context.rect(0,0,context.canvas.width,context.canvas.height);
   context.fillStyle = "#101820";
@@ -10787,9 +10785,17 @@ $( document ).ready(function() {
   context.globalCompositeOperation = 'xor';
 
   context.beginPath();
-  context.shadowBlur = 10;
   context.arc(beamCenter.x, beamCenter.y, radius, 0, 2 * Math.PI, false);
   context.fillStyle = "#FFF";
+  context.fill();
+
+  context.globalCompositeOperation = 'destination-out';
+
+  context.beginPath();
+  context.moveTo(mousePos.x,mousePos.y);
+  context.lineTo(T1.x,T1.y);
+  context.lineTo(T2.x,T2.y);
+  context.fillStyle = "rgba(255, 255, 255, 0.7)";
   context.fill();
 
   context.restore();
@@ -10798,6 +10804,7 @@ $( document ).ready(function() {
   context.arc(beamCenter.x, beamCenter.y, radius, 0, 2 * Math.PI, false);
   context.fillStyle = "rgba(255, 255, 255, 0.3)";
   context.fill();
+
 
   $( window ).mousemove(function( event ) {
 
@@ -10851,14 +10858,14 @@ $( document ).ready(function() {
         y: beamCenter.y + radius * Math.cos(t)
     }
 
-    context.save();
-
     eraseBackground();
 
+    context.save();
+
     context.beginPath();
-  context.rect(0,0,context.canvas.width,context.canvas.height);
-  context.fillStyle = "#101820";
-  context.fill();
+    context.rect(0,0,context.canvas.width,context.canvas.height);
+    context.fillStyle = "#101820";
+    context.fill();
 
     context.beginPath();
     context.moveTo(mousePos.x,mousePos.y);
@@ -10874,8 +10881,17 @@ $( document ).ready(function() {
     context.fillStyle = "#FFF";
     context.fill();
 
-    context.restore();
+    context.globalCompositeOperation = 'destination-out';
 
+    context.beginPath();
+    context.moveTo(mousePos.x,mousePos.y);
+    context.lineTo(T1.x,T1.y);
+    context.lineTo(T2.x,T2.y);
+    context.fillStyle = "rgba(255, 255, 255, 0.7)";
+    context.fill();
+
+    context.restore();
+ 
     context.beginPath();
     context.arc(beamCenter.x, beamCenter.y, radius, 0, 2 * Math.PI, false);
     context.fillStyle = "rgba(255, 255, 255, 0.3)";
