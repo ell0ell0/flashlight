@@ -10727,8 +10727,8 @@ $( document ).ready(function() {
     };
 
     inputPos = {
-      x: context.canvas.width - context.canvas.width/6,
-      y: context.canvas.height/4
+      x: context.canvas.width/6,
+      y: context.canvas.height/1.3
     };
 
     vector = {
@@ -10766,6 +10766,7 @@ $( document ).ready(function() {
     });
 
     document.addEventListener('touchmove', function(e) {
+      //e.preventDefault();
       var touch = e.touches[0];
       inputPos.x = touch.pageX;
       inputPos.y = touch.pageY;
@@ -10832,8 +10833,8 @@ $( document ).ready(function() {
 
         //Calculate Tangents
         pointDistance = {
-            x: beamCenter.x - input.x,
-            y: beamCenter.y - input.y,
+            x: input.x - beamCenter.x,
+            y: input.y - beamCenter.y,
             length: function () {
                 return Math.sqrt(this.x * this.x + this.y * this.y)
             }
@@ -10846,14 +10847,14 @@ $( document ).ready(function() {
         t = b - a;
         //Tangent points
         T1 = {
-            x: beamCenter.x + radius * Math.sin(t),
-            y: beamCenter.y + radius * -Math.cos(t)
+            x: input.x + radius * Math.sin(t),
+            y: input.y + radius * -Math.cos(t)
         };
 
         t = b + a;
         T2 = {
-            x: beamCenter.x + radius * -Math.sin(t),
-            y: beamCenter.y + radius * Math.cos(t)
+            x: input.x + radius * -Math.sin(t),
+            y: input.y + radius * Math.cos(t)
         }
 
         eraseBackground();
@@ -10866,7 +10867,7 @@ $( document ).ready(function() {
         context.fill();
 
         context.beginPath();
-        context.moveTo(input.x,input.y);
+        context.moveTo(beamCenter.x,beamCenter.y);
         context.lineTo(T1.x,T1.y);
         context.lineTo(T2.x,T2.y);
         context.fillStyle = "rgba(255, 255, 255, 0.7)";
@@ -10875,14 +10876,14 @@ $( document ).ready(function() {
         context.globalCompositeOperation = 'xor';
 
         context.beginPath();
-        context.arc(beamCenter.x, beamCenter.y, radius, 0, 2 * Math.PI, false);
+        context.arc(input.x, input.y, radius, 0, 2 * Math.PI, false);
         context.fillStyle = "#FFF";
         context.fill();
 
         context.globalCompositeOperation = 'destination-out';
 
         context.beginPath();
-        context.moveTo(input.x,input.y);
+        context.moveTo(beamCenter.x,beamCenter.y);
         context.lineTo(T1.x,T1.y);
         context.lineTo(T2.x,T2.y);
         context.fillStyle = "rgba(255, 255, 255, 0.7)";
@@ -10891,7 +10892,7 @@ $( document ).ready(function() {
         context.restore();
      
         context.beginPath();
-        context.arc(beamCenter.x, beamCenter.y, radius, 0, 2 * Math.PI, false);
+        context.arc(input.x, input.y, radius, 0, 2 * Math.PI, false);
         context.fillStyle = "rgba(255, 255, 255, 0.3)";
         context.fill();
       }
