@@ -10769,6 +10769,7 @@ $( document ).ready(function() {
       // e.preventDefault();
       var touch = e.touches[0];
       inputPos = windowToCanvas(canvas, touch.pageX, touch.pageY);
+      alert(touch.pageX + " - " + touch.pageY);
       drawShapes(inputPos); 
     }, false); 
 
@@ -10777,7 +10778,7 @@ $( document ).ready(function() {
 
         if( $(window).width() > 540 ) {
           pause = false;
-        } else {
+        } else { 
           pause = true;
         }
         eraseBackground();
