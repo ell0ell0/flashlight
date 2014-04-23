@@ -10761,6 +10761,7 @@ $( document ).ready(function() {
     $( window ).mousemove(function( event ) {
 
       inputPos = windowToCanvas(canvas, event.clientX, event.clientY);
+      // console.log(inputPos);
       drawShapes(inputPos);
       
     });
@@ -10768,8 +10769,7 @@ $( document ).ready(function() {
     document.addEventListener('touchmove', function(e) {
       // e.preventDefault();
       var touch = e.touches[0];
-      inputPos.x = touch.pageX;
-      inputPos.y = touch.pageY;
+      inputPos = windowToCanvas(canvas, touch.pageX, touch.pageY);
       drawShapes(inputPos); 
     }, false); 
 
