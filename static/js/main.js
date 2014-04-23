@@ -10765,10 +10765,10 @@ $( document ).ready(function() {
       
     });
 
-    document.addEventListener('touchmove', function(e) {
+    document.addEventListener('touchend', function(e) {
       var touch = e.touches[0];
       inputPos = windowToCanvas(canvas, touch.pageX, touch.pageY);
-    }, false); 
+    }, false);
 
     $( window ).resize(function() {
       waitForFinalEvent(function(){
