@@ -10712,8 +10712,8 @@ $( document ).ready(function() {
 
     var canvas =  document.querySelector('#canvas'),
                     context = canvas.getContext('2d');
-                    context.canvas.width  = $(window).width();
-                    context.canvas.height = $(window).height();
+                    context.canvas.width  = $(".content-wrapper").width();
+                    context.canvas.height = $(".content-wrapper").height();
 
     var center, inputPos, vector, p1, p2, p3, p4, radius, beamCenter;
 
@@ -10723,7 +10723,7 @@ $( document ).ready(function() {
 
     center = { 
       x: context.canvas.width/2,
-      y: context.canvas.height/2
+      y: $(window).height()/2 + window.pageYOffset
     };
 
     inputPos = {
@@ -10760,25 +10760,25 @@ $( document ).ready(function() {
 
     $( window ).mousemove(function( event ) {
 
-      inputPos.x = event.clientX;
-      inputPos.y = event.clientY;
-      // console.log(event.clientY);
+      inputPos.x = event.pageX;
+      inputPos.y = event.pageY;
       drawShapes(inputPos);
-      
     });
 
     document.addEventListener('touchmove', function(e) {
-      // e.preventDefault();
       var touch = e.touches[0];
-      inputPos.x = touch.clientX;
-      inputPos.y = touch.clientY;
-      //inputPos = windowToCanvas(canvas, touch.pageX, touch.pageY);
+      inputPos.x = touch.pageX;
+      inputPos.y = touch.pageY;
       drawShapes(inputPos); 
     }, false); 
 
-    // document.addEventListener('touchend', function(e) {
-    //   alert(inputPos.x + " - " + inputPos.y);
-    // }, false); 
+    $( window ).scroll(function() {
+      center = { 
+        x: context.canvas.width/2,
+        y: $(window).height()/2 + window.pageYOffset
+      };
+    });
+
 
     $( window ).resize(function() {
       waitForFinalEvent(function(){
@@ -10791,8 +10791,8 @@ $( document ).ready(function() {
         eraseBackground();
         canvas =  document.querySelector('#canvas'),
                     context = canvas.getContext('2d');
-                    context.canvas.width  = $(window).width();
-                    context.canvas.height = $(window).height();
+                    context.canvas.width  = $(".content-wrapper").width();
+                    context.canvas.height = $(".content-wrapper").height();
 
         center = { 
           x: context.canvas.width/2,
