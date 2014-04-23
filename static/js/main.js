@@ -10693,126 +10693,47 @@ $(document).ready( function() {
   }
 })(this);
 $( document ).ready(function() {  
-  var canvas =  document.querySelector('#canvas'),
-                  context = canvas.getContext('2d');
-                  context.canvas.width  = $(window).width();
-                  context.canvas.height = $(window).height();
 
-  var center, mousePos, vector, p1, p2, p3, p4, radius, beamCenter;
+  // if (Modernizr.canvas) {
 
-  var angle = 18;
-  var blur = 1;
+  //We'll want to wrap all of this in a modernizr check for canvas
 
-  center = { 
-    x: context.canvas.width/2,
-    y: context.canvas.height/2
-  };
+    // ------------------------------------------------
+    // Initialize
+    // ------------------------------------------------
 
-  mousePos = {
+    var pause;
+
+    if( $(window).width() > 540 ) {
+      pause = false;
+    } else {
+      pause = true;
+    }
+
+    var canvas =  document.querySelector('#canvas'),
+                    context = canvas.getContext('2d');
+                    context.canvas.width  = $(window).width();
+                    context.canvas.height = $(window).height();
+
+    var center, inputPos, vector, p1, p2, p3, p4, radius, beamCenter;
+
+    var angle = 18;
+
+    var pointDistance, a, b, t, T1, T2;
+
+    center = { 
+      x: context.canvas.width/2,
+      y: context.canvas.height/2
+    };
+
+    inputPos = {
       x: context.canvas.width - context.canvas.width/6,
       y: context.canvas.height/4
     };
 
-  vector = {
-    x: center.x - mousePos.x,
-    y: center.y - mousePos.y
-  }
-
-  p1 = {
-    x: center.x + vector.x * Math.cos(getRadians(angle)),
-    y: center.y + vector.y * Math.sin(getRadians(angle))
-  }
-
-  p2 = {
-    x: center.x + vector.x * Math.sin(getRadians(angle)),
-    y: center.y + vector.y * Math.cos(getRadians(angle))
-  }
-
-  beamCenter = {
-    x: (p1.x + p2.x)/2,
-    y: (p1.y + p2.y)/2
-  }
-
-  radius = getDist(p1.x, p1.y, p2.x, p2.y)/2;
-
-  dist = {
-    x: beamCenter.x - mousePos.x,
-    y: beamCenter.y - mousePos.y
-  }
-
- //Calculate Tangents
-  var pointDistance = {
-      x: beamCenter.x - mousePos.x,
-      y: beamCenter.y - mousePos.y,
-      length: function () {
-          return Math.sqrt(this.x * this.x + this.y * this.y)
-      }
-  }
-
-  //Alpha
-  var a = Math.asin(radius / pointDistance.length());
-  //Beta
-  var b = Math.atan2(pointDistance.y, pointDistance.x);
-  //Tangent angle
-  var t = b - a;
-  //Tangent points
-  var T1 = {
-      x: beamCenter.x + radius * Math.sin(t),
-      y: beamCenter.y + radius * -Math.cos(t)
-  };
-
-  t = b + a;
-  var T2 = {
-      x: beamCenter.x + radius * -Math.sin(t),
-      y: beamCenter.y + radius * Math.cos(t)
-  }
-
-
-  context.save();
-
-  context.beginPath();
-  context.rect(0,0,context.canvas.width,context.canvas.height);
-  context.fillStyle = "#101820";
-  context.fill();
-
-  context.beginPath();
-  context.moveTo(mousePos.x,mousePos.y);
-  context.lineTo(T1.x,T1.y);
-  context.lineTo(T2.x,T2.y);
-  context.fillStyle = "rgba(255, 255, 255, 0.7)";
-  context.fill();
-
-  context.globalCompositeOperation = 'xor';
-
-  context.beginPath();
-  context.arc(beamCenter.x, beamCenter.y, radius, 0, 2 * Math.PI, false);
-  context.fillStyle = "#FFF";
-  context.fill();
-
-  context.globalCompositeOperation = 'destination-out';
-
-  context.beginPath();
-  context.moveTo(mousePos.x,mousePos.y);
-  context.lineTo(T1.x,T1.y);
-  context.lineTo(T2.x,T2.y);
-  context.fillStyle = "rgba(255, 255, 255, 0.7)";
-  context.fill();
-
-  context.restore();
-
-  context.beginPath();
-  context.arc(beamCenter.x, beamCenter.y, radius, 0, 2 * Math.PI, false);
-  context.fillStyle = "rgba(255, 255, 255, 0.3)";
-  context.fill();
-
-
-  $( window ).mousemove(function( event ) {
-
-    mousePos = windowToCanvas(canvas, event.clientX, event.clientY);
-
     vector = {
-      x: beamCenter.x - mousePos.x,
-      y: beamCenter.y - mousePos.y
+      x: center.x - inputPos.x,
+      y: center.y - inputPos.y
     }
 
     p1 = {
@@ -10830,129 +10751,209 @@ $( document ).ready(function() {
       y: (p1.y + p2.y)/2
     }
 
-    radius = getDist(p1.x, p1.y, p2.x, p2.y)/2;
+    drawShapes(inputPos);
 
-    //Calculate Tangents
-    pointDistance = {
-        x: beamCenter.x - mousePos.x,
-        y: beamCenter.y - mousePos.y,
-        length: function () {
-            return Math.sqrt(this.x * this.x + this.y * this.y)
+
+    // ------------------------------------------------
+    // Events
+    // ------------------------------------------------
+
+    $( window ).mousemove(function( event ) {
+
+      inputPos = windowToCanvas(canvas, event.clientX, event.clientY);
+      drawShapes(inputPos);
+      
+    });
+
+    document.addEventListener('touchmove', function(e) {
+      e.preventDefault();
+      var touch = e.touches[0];
+      inputPos = windowToCanvas(canvas, touch.pageX, touch.pageY);
+    }, false);
+
+    document.addEventListener('touchstart', function(e) {
+      e.preventDefault();
+      var touch = e.touches[0];
+      inputPos = windowToCanvas(canvas, touch.pageX, touch.pageY);
+    }, false);
+
+    $( window ).resize(function() {
+      waitForFinalEvent(function(){
+
+        if( $(window).width() > 540 ) {
+          pause = false;
+        } else {
+          pause = true;
         }
-    }
-    //Alpha
-    a = Math.asin(radius / pointDistance.length());
-    //Beta
-    b = Math.atan2(pointDistance.y, pointDistance.x);
-    //Tangent angle
-    t = b - a;
-    //Tangent points
-    T1 = {
-        x: beamCenter.x + radius * Math.sin(t),
-        y: beamCenter.y + radius * -Math.cos(t)
-    };
 
-    t = b + a;
-    T2 = {
-        x: beamCenter.x + radius * -Math.sin(t),
-        y: beamCenter.y + radius * Math.cos(t)
-    }
+        console.log(pause);
 
-    eraseBackground();
+        eraseBackground();
+        canvas =  document.querySelector('#canvas'),
+                    context = canvas.getContext('2d');
+                    context.canvas.width  = $(window).width();
+                    context.canvas.height = $(window).height();
 
-    context.save();
+        center = { 
+          x: context.canvas.width/2,
+          y: context.canvas.height/2 
+        };
+        drawShapes(inputPos);
 
-    context.beginPath();
-    context.rect(0,0,context.canvas.width,context.canvas.height);
-    context.fillStyle = "#101820";
-    context.fill();
+      }, 200, "reset stuff");
+    });
 
-    context.beginPath();
-    context.moveTo(mousePos.x,mousePos.y);
-    context.lineTo(T1.x,T1.y);
-    context.lineTo(T2.x,T2.y);
-    context.fillStyle = "rgba(255, 255, 255, 0.7)";
-    context.fill();
+    // ------------------------------------------------
+    // Functions
+    // ------------------------------------------------
+    function drawShapes(input) {
+      if(!pause) {
+        vector = {
+          x: beamCenter.x - input.x,
+          y: beamCenter.y - input.y
+        }
 
-    context.globalCompositeOperation = 'xor';
+        p1 = {
+          x: center.x + vector.x * Math.cos(getRadians(angle)),
+          y: center.y + vector.y * Math.sin(getRadians(angle))
+        }
 
-    context.beginPath();
-    context.arc(beamCenter.x, beamCenter.y, radius, 0, 2 * Math.PI, false);
-    context.fillStyle = "#FFF";
-    context.fill();
+        p2 = {
+          x: center.x + vector.x * Math.sin(getRadians(angle)),
+          y: center.y + vector.y * Math.cos(getRadians(angle))
+        }
 
-    context.globalCompositeOperation = 'destination-out';
+        beamCenter = {
+          x: (p1.x + p2.x)/2,
+          y: (p1.y + p2.y)/2
+        }
 
-    context.beginPath();
-    context.moveTo(mousePos.x,mousePos.y);
-    context.lineTo(T1.x,T1.y);
-    context.lineTo(T2.x,T2.y);
-    context.fillStyle = "rgba(255, 255, 255, 0.7)";
-    context.fill();
+        radius = getDist(p1.x, p1.y, p2.x, p2.y)/2;
 
-    context.restore();
- 
-    context.beginPath();
-    context.arc(beamCenter.x, beamCenter.y, radius, 0, 2 * Math.PI, false);
-    context.fillStyle = "rgba(255, 255, 255, 0.3)";
-    context.fill();
+        //Calculate Tangents
+        pointDistance = {
+            x: beamCenter.x - input.x,
+            y: beamCenter.y - input.y,
+            length: function () {
+                return Math.sqrt(this.x * this.x + this.y * this.y)
+            }
+        }
+        //Alpha
+        a = Math.asin(radius / pointDistance.length());
+        //Beta
+        b = Math.atan2(pointDistance.y, pointDistance.x);
+        //Tangent angle
+        t = b - a;
+        //Tangent points
+        T1 = {
+            x: beamCenter.x + radius * Math.sin(t),
+            y: beamCenter.y + radius * -Math.cos(t)
+        };
 
-    
-  });
+        t = b + a;
+        T2 = {
+            x: beamCenter.x + radius * -Math.sin(t),
+            y: beamCenter.y + radius * Math.cos(t)
+        }
 
-  $( window ).resize(function() {
-    context.canvas.width  = $(window).width();
-    context.canvas.height = $(window).height();
+        eraseBackground();
 
-    center = { 
-      x: context.canvas.width/2,
-      y: context.canvas.height/2
-    };
-  });
+        context.save();
 
+        context.beginPath();
+        context.rect(0,0,context.canvas.width,context.canvas.height);
+        context.fillStyle = "#101820";
+        context.fill();
 
-  // ------------------------------------------------
-  // utilitits
-  // ------------------------------------------------
-  function map(value, inputMin, inputMax, outputMin, outputMax, clamp){
-    var outVal = ((value - inputMin) / (inputMax - inputMin) * (outputMax - outputMin) + outputMin);
-    if( clamp ){
-      if(outputMax < outputMin){
-        if( outVal < outputMax )outVal = outputMax;
-        else if( outVal > outputMin )outVal = outputMin;
-      }else{
-        if( outVal > outputMax )outVal = outputMax;
-        else if( outVal < outputMin )outVal = outputMin;
+        context.beginPath();
+        context.moveTo(input.x,input.y);
+        context.lineTo(T1.x,T1.y);
+        context.lineTo(T2.x,T2.y);
+        context.fillStyle = "rgba(255, 255, 255, 0.7)";
+        context.fill();
+
+        context.globalCompositeOperation = 'xor';
+
+        context.beginPath();
+        context.arc(beamCenter.x, beamCenter.y, radius, 0, 2 * Math.PI, false);
+        context.fillStyle = "#FFF";
+        context.fill();
+
+        context.globalCompositeOperation = 'destination-out';
+
+        context.beginPath();
+        context.moveTo(input.x,input.y);
+        context.lineTo(T1.x,T1.y);
+        context.lineTo(T2.x,T2.y);
+        context.fillStyle = "rgba(255, 255, 255, 0.7)";
+        context.fill();
+
+        context.restore();
+     
+        context.beginPath();
+        context.arc(beamCenter.x, beamCenter.y, radius, 0, 2 * Math.PI, false);
+        context.fillStyle = "rgba(255, 255, 255, 0.3)";
+        context.fill();
       }
     }
-    return outVal;
-  }
 
-  function getDist(x1, y1, x2, y2) {
-    return Math.round( Math.sqrt((x1-x2) * (x1-x2) + (y1-y2) * (y1-y2)) );
-  }
+    // ------------------------------------------------
+    // utilitits
+    // ------------------------------------------------
+    function map(value, inputMin, inputMax, outputMin, outputMax, clamp){
+      var outVal = ((value - inputMin) / (inputMax - inputMin) * (outputMax - outputMin) + outputMin);
+      if( clamp ){
+        if(outputMax < outputMin){
+          if( outVal < outputMax )outVal = outputMax;
+          else if( outVal > outputMin )outVal = outputMin;
+        }else{
+          if( outVal > outputMax )outVal = outputMax;
+          else if( outVal < outputMin )outVal = outputMin;
+        }
+      }
+      return outVal;
+    }
 
-  function getHypotenuse(x, y) {
-    return Math.sqrt( x*x + y*y );
-  }
+    //wait for timer
+    var waitForFinalEvent = (function () {
+      var timers = {};
+      return function (callback, ms, uniqueId) {
+        if (!uniqueId) {
+          uniqueId = "Don't call this twice without a uniqueId";
+        }
+        if (timers[uniqueId]) {
+          clearTimeout (timers[uniqueId]);
+        }
+        timers[uniqueId] = setTimeout(callback, ms);
+      };
+    })();
 
-  function getRadians(degrees) {
-    return degrees*Math.PI/180;
-  }
+    function getDist(x1, y1, x2, y2) {
+      return Math.round( Math.sqrt((x1-x2) * (x1-x2) + (y1-y2) * (y1-y2)) );
+    }
 
-  function clamp(value, min, max) {
-    return value < min ? min : value > max ? max : value;
-  }
+    function getHypotenuse(x, y) {
+      return Math.sqrt( x*x + y*y );
+    }
 
-  function windowToCanvas(canvas, x, y) {
-    var bbox = canvas.getBoundingClientRect();
-    return { x: x - bbox.left * (canvas.width  / bbox.width),
-             y: y - bbox.top  * (canvas.height / bbox.height)
-          };
-  }
+    function getRadians(degrees) {
+      return degrees*Math.PI/180;
+    }
 
-  function eraseBackground() {
-    context.clearRect(0,0,canvas.width,canvas.height);
-  }
+    function clamp(value, min, max) {
+      return value < min ? min : value > max ? max : value;
+    }
+
+    function windowToCanvas(canvas, x, y) {
+      var bbox = canvas.getBoundingClientRect();
+      return { x: x - bbox.left * (canvas.width  / bbox.width),
+               y: y - bbox.top  * (canvas.height / bbox.height)
+            };
+    }
+
+    function eraseBackground() {
+      context.clearRect(0,0,canvas.width,canvas.height);
+    }
+//  }
 
 });
