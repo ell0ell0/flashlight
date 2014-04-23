@@ -10768,11 +10768,6 @@ $( document ).ready(function() {
     document.addEventListener('touchmove', function(e) {
       var touch = e.touches[0];
       inputPos = windowToCanvas(canvas, touch.pageX, touch.pageY);
-    }, false);
-
-    document.addEventListener('touchstart', function(e) {
-      var touch = e.touches[0];
-      inputPos = windowToCanvas(canvas, touch.pageX, touch.pageY);
     }, false); 
 
     $( window ).resize(function() {
