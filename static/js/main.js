@@ -10769,7 +10769,7 @@ $( document ).ready(function() {
       e.preventDefault();
       var touch = e.touches[0];
       inputPos = windowToCanvas(canvas, touch.pageX, touch.pageY);
-      alert(touch.pageX + " - " + touch.pageY); 
+      drawShapes(inputPos); 
     }, false); 
 
     $( window ).resize(function() {
