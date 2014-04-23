@@ -10768,7 +10768,8 @@ $( document ).ready(function() {
     document.addEventListener('touchmove', function(e) {
       // e.preventDefault();
       var touch = e.touches[0];
-      inputPos = windowToCanvas(canvas, touch.pageX, touch.pageY);
+      inputPos.x = touch.pageX;
+      inputPos.y = touch.pageY;
       drawShapes(inputPos); 
     }, false); 
 
