@@ -10772,9 +10772,8 @@ $( document ).ready(function() {
       drawShapes(inputPos); 
     }, false); 
 
-    document.addEventListener('touchcancel', function(e) {
-      var touch = e.touches[0];
-      alert(touch.pageX + " - " + touch.pageY);
+    document.addEventListener('touchend', function(e) {
+      alert(inputPos.x + " - " + inputPos.y);
     }, false); 
 
     $( window ).resize(function() {
