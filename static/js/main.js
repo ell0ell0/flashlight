@@ -10769,8 +10769,12 @@ $( document ).ready(function() {
       // e.preventDefault();
       var touch = e.touches[0];
       inputPos = windowToCanvas(canvas, touch.pageX, touch.pageY);
-      alert(touch.pageX + " - " + touch.pageY);
       drawShapes(inputPos); 
+    }, false); 
+
+    document.addEventListener('touchend', function(e) {
+      var touch = e.touches[0];
+      alert(touch.pageX + " - " + touch.pageY);
     }, false); 
 
     $( window ).resize(function() {
