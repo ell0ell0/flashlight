@@ -10758,6 +10758,13 @@ $( document ).ready(function() {
     // Events
     // ------------------------------------------------
 
+    $( window ).scroll(function() {
+      center = { 
+        x: context.canvas.width/2,
+        y: $(window).height()/2 + window.pageYOffset
+      };
+    });
+
     $( window ).mousemove(function( event ) {
 
       inputPos.x = event.pageX;
@@ -10772,14 +10779,6 @@ $( document ).ready(function() {
       inputPos.y = touch.pageY;
       drawShapes(inputPos); 
     }, false); 
-
-    $( window ).scroll(function() {
-      center = { 
-        x: context.canvas.width/2,
-        y: $(window).height()/2 + window.pageYOffset
-      };
-    });
-
 
     $( window ).resize(function() {
       waitForFinalEvent(function(){
