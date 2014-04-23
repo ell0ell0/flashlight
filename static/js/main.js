@@ -10765,10 +10765,11 @@ $( document ).ready(function() {
       
     });
 
-    document.addEventListener('touchend', function(e) {
+    document.addEventListener('touchmove', function(e) {
+      e.preventDefault();
       var touch = e.touches[0];
       inputPos = windowToCanvas(canvas, touch.pageX, touch.pageY);
-    }, false);
+    }, false); 
 
     $( window ).resize(function() {
       waitForFinalEvent(function(){
@@ -10778,9 +10779,6 @@ $( document ).ready(function() {
         } else {
           pause = true;
         }
-
-        console.log(pause);
-
         eraseBackground();
         canvas =  document.querySelector('#canvas'),
                     context = canvas.getContext('2d');
