@@ -10773,9 +10773,9 @@ $( document ).ready(function() {
       drawShapes(inputPos); 
     }, false); 
 
-    document.addEventListener('touchend', function(e) {
-      alert(inputPos.x + " - " + inputPos.y);
-    }, false); 
+    // document.addEventListener('touchend', function(e) {
+    //   alert(inputPos.x + " - " + inputPos.y);
+    // }, false); 
 
     $( window ).resize(function() {
       waitForFinalEvent(function(){
