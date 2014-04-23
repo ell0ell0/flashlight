@@ -10766,16 +10766,14 @@ $( document ).ready(function() {
     });
 
     document.addEventListener('touchmove', function(e) {
-      e.preventDefault();
       var touch = e.touches[0];
       inputPos = windowToCanvas(canvas, touch.pageX, touch.pageY);
     }, false);
 
     document.addEventListener('touchstart', function(e) {
-      e.preventDefault();
       var touch = e.touches[0];
       inputPos = windowToCanvas(canvas, touch.pageX, touch.pageY);
-    }, false);
+    }, false); 
 
     $( window ).resize(function() {
       waitForFinalEvent(function(){
