@@ -10774,6 +10774,11 @@ $( document ).ready(function() {
 
     document.addEventListener('touchmove', function(e) {
       //e.preventDefault();
+      center = { 
+        x: context.canvas.width/2,
+        y: $(window).height()/2 + window.pageYOffset
+      };
+      
       var touch = e.touches[0];
       inputPos.x = touch.pageX;
       inputPos.y = touch.pageY;
