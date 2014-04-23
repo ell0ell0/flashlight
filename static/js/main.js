@@ -10760,8 +10760,9 @@ $( document ).ready(function() {
 
     $( window ).mousemove(function( event ) {
 
-      inputPos = windowToCanvas(canvas, event.clientX, event.clientY);
-      // console.log(inputPos);
+      inputPos.x = event.clientX;
+      inputPos.y = event.clientY;
+      // console.log(event.clientY);
       drawShapes(inputPos);
       
     });
@@ -10769,7 +10770,9 @@ $( document ).ready(function() {
     document.addEventListener('touchmove', function(e) {
       // e.preventDefault();
       var touch = e.touches[0];
-      inputPos = windowToCanvas(canvas, touch.pageX, touch.pageY);
+      inputPos.x = touch.clientX;
+      inputPos.y = touch.clientY;
+      //inputPos = windowToCanvas(canvas, touch.pageX, touch.pageY);
       drawShapes(inputPos); 
     }, false); 
 
@@ -10943,7 +10946,6 @@ $( document ).ready(function() {
 
     function windowToCanvas(canvas, x, y) {
       var bbox = canvas.getBoundingClientRect();
-      console.log("x = " + x + " - y = " + y);
       return { x: x - bbox.left * (canvas.width  / bbox.width),
                y: y - bbox.top  * (canvas.height / bbox.height)
             };
