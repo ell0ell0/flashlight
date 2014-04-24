@@ -10759,13 +10759,22 @@ $(window).load(function() {
     // ------------------------------------------------
 
     window.onscroll = function() {
+      waitForFinalEvent(function(){
+        center = { 
+          x: context.canvas.width/2,
+          y: $(window).height()/2 + window.pageYOffset
+        };
+        drawShapes(inputPos);
+        alert("called");  
+      });
+    };
+
+    $( window ).mousemove(function( event ) {
+
       center = { 
         x: context.canvas.width/2,
         y: $(window).height()/2 + window.pageYOffset
       };
-    };
-
-    $( window ).mousemove(function( event ) {
 
       inputPos.x = event.pageX;
       inputPos.y = event.pageY; 
@@ -10783,19 +10792,6 @@ $(window).load(function() {
       inputPos.x = touch.pageX;
       inputPos.y = touch.pageY;
       drawShapes(inputPos);  
-    }, false); 
-
-    document.addEventListener('touchend', function(e) {
-      //e.preventDefault();
-      center = { 
-        x: context.canvas.width/2,
-        y: $(window).height()/2 + window.pageYOffset
-      };
-      
-      var touch = e.touches[0];
-      inputPos.x = touch.pageX;
-      inputPos.y = touch.pageY;
-      drawShapes(inputPos); 
     }, false); 
 
     $( window ).resize(function() {
