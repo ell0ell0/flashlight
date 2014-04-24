@@ -10760,12 +10760,12 @@ $(window).load(function() {
     // ------------------------------------------------
 
     window.onscroll = function() {
-      waitForFinalEvent(function(){
-        center = { 
-          x: context.canvas.width/2, 
-          y: $(window).height()/yOffset + window.pageYOffset
-        };
-      });
+
+      center = { 
+        x: context.canvas.width/2, 
+        y: $(window).height()/yOffset + window.pageYOffset
+      };
+
     };
 
     $( window ).mousemove(function( event ) {
@@ -10775,10 +10775,14 @@ $(window).load(function() {
         y: $(window).height()/yOffset + window.pageYOffset
       };
 
-      inputPos.x = event.pageX;
-      inputPos.y = event.pageY; 
-      drawShapes(inputPos);
-    });
+      var mousePos = {
+        x: event.pageX,
+        y: event.pageY
+      }
+      drawShapes(mousePos);
+
+      inputPos = mousePos;
+    }); 
 
     document.addEventListener('touchstart', function(e) {
       //e.preventDefault();
@@ -10787,12 +10791,18 @@ $(window).load(function() {
         y: $(window).height()/yOffset + window.pageYOffset
       };
       
-      console.log(center);
-
       var touch = e.touches[0];
-      inputPos.x = touch.pageX;
-      inputPos.y = touch.pageY;
-      drawShapes(inputPos); 
+
+      var touchPos = {
+        x: touch.pageX,
+        y: touch.pageY
+      }
+
+      console.log(touchPos);
+
+      drawShapes(touchPos); 
+
+      inputPos = touchPos;
     }, false); 
 
     $( window ).resize(function() {
@@ -10822,7 +10832,6 @@ $(window).load(function() {
     // Functions
     // ------------------------------------------------
     function drawShapes(input) {
-      console.log("drawing");
       if(!pause) {
         vector = {
           x: beamCenter.x - input.x,
@@ -10951,7 +10960,7 @@ $(window).load(function() {
     function getHypotenuse(x, y) {
       return Math.sqrt( x*x + y*y );
     }
-
+ 
     function getRadians(degrees) {
       return degrees*Math.PI/180;
     }
