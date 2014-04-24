@@ -10758,13 +10758,12 @@ $(window).load(function() {
     // Events
     // ------------------------------------------------
 
-    $( window ).scroll(function() {
+    window.onscroll = function() {
       center = { 
         x: context.canvas.width/2,
         y: $(window).height()/2 + window.pageYOffset
       };
-      drawShapes(inputPos); 
-    });
+    };
 
     $( window ).mousemove(function( event ) {
 
@@ -10783,7 +10782,7 @@ $(window).load(function() {
       var touch = e.touches[0];
       inputPos.x = touch.pageX;
       inputPos.y = touch.pageY;
-      drawShapes(inputPos); 
+      drawShapes(inputPos);  
     }, false); 
 
     document.addEventListener('touchend', function(e) {
