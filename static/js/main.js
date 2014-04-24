@@ -10765,7 +10765,6 @@ $(window).load(function() {
           x: context.canvas.width/2, 
           y: $(window).height()/yOffset + window.pageYOffset
         };
-        drawShapes(inputPos);
       });
     };
 
@@ -10788,6 +10787,8 @@ $(window).load(function() {
         y: $(window).height()/yOffset + window.pageYOffset
       };
       
+      console.log(center);
+
       var touch = e.touches[0];
       inputPos.x = touch.pageX;
       inputPos.y = touch.pageY;
@@ -10821,6 +10822,7 @@ $(window).load(function() {
     // Functions
     // ------------------------------------------------
     function drawShapes(input) {
+      console.log("drawing");
       if(!pause) {
         vector = {
           x: beamCenter.x - input.x,
@@ -10903,7 +10905,7 @@ $(window).load(function() {
         context.fill();
 
         context.restore();
-     
+      
         context.beginPath();
         context.arc(input.x, input.y, radius, 0, 2 * Math.PI, false);
         context.fillStyle = "rgba(255, 255, 255, 0.3)";
