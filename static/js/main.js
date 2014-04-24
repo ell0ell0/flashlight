@@ -10723,7 +10723,7 @@ $(window).load(function() {
 
     center = { 
       x: context.canvas.width/2,
-      y: $(window).height()/2 + window.pageYOffset
+      y: $(window).height() + window.pageYOffset
     };
 
     inputPos = {
@@ -10748,7 +10748,7 @@ $(window).load(function() {
 
     beamCenter = {
       x: (p1.x + p2.x)/2,
-      y: (p1.y + p2.y)/2
+      y: (p1.y + p2.y)/2 
     }
 
     drawShapes(inputPos);
@@ -10762,10 +10762,9 @@ $(window).load(function() {
       waitForFinalEvent(function(){
         center = { 
           x: context.canvas.width/2,
-          y: $(window).height()/2 + window.pageYOffset
+          y: $(window).height() + window.pageYOffset
         };
         drawShapes(inputPos);
-        alert("called");  
       });
     };
 
@@ -10773,7 +10772,7 @@ $(window).load(function() {
 
       center = { 
         x: context.canvas.width/2,
-        y: $(window).height()/2 + window.pageYOffset
+        y: $(window).height() + window.pageYOffset
       };
 
       inputPos.x = event.pageX;
@@ -10785,13 +10784,13 @@ $(window).load(function() {
       //e.preventDefault();
       center = { 
         x: context.canvas.width/2,
-        y: $(window).height()/2 + window.pageYOffset
+        y: $(window).height() + window.pageYOffset
       };
       
       var touch = e.touches[0];
       inputPos.x = touch.pageX;
       inputPos.y = touch.pageY;
-      drawShapes(inputPos);  
+      drawShapes(inputPos); 
     }, false); 
 
     $( window ).resize(function() {
@@ -10810,7 +10809,7 @@ $(window).load(function() {
 
         center = { 
           x: context.canvas.width/2,
-          y: context.canvas.height/2 
+          y: context.canvas.height 
         };
         drawShapes(inputPos);
 
