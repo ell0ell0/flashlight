@@ -10728,8 +10728,8 @@ $(window).load(function() {
     };
 
     inputPos = {
-      x: context.canvas.width/6,
-      y: context.canvas.height/1.3
+      x: context.canvas.width/3,
+      y: 500
     };
 
     vector = {
@@ -10768,20 +10768,18 @@ $(window).load(function() {
 
     };
 
-    $( window ).mousemove(function( event ) {
+    $( window ).click(function(e) {
 
       center = { 
         x: context.canvas.width/2,
         y: $(window).height()/yOffset + window.pageYOffset
       };
 
-      var mousePos = {
-        x: event.pageX,
-        y: event.pageY
+      inputPos = {
+        x: e.pageX,
+        y: e.pageY
       }
-      drawShapes(mousePos);
-
-      inputPos = mousePos;
+      drawShapes(inputPos);
     }); 
 
     document.addEventListener('touchstart', function(e) {
@@ -10790,19 +10788,14 @@ $(window).load(function() {
         x: context.canvas.width/2,
         y: $(window).height()/yOffset + window.pageYOffset
       };
-      
       var touch = e.touches[0];
-
-      var touchPos = {
+      inputPos = {
         x: touch.pageX,
         y: touch.pageY
+      };
+      for (var i = 0; i < 11; i++) {
+        drawShapes(inputPos); 
       }
-
-      console.log(touchPos);
-
-      drawShapes(touchPos); 
-
-      inputPos = touchPos;
     }, false); 
 
     $( window ).resize(function() {
@@ -10860,9 +10853,9 @@ $(window).load(function() {
             x: input.x - beamCenter.x,
             y: input.y - beamCenter.y,
             length: function () {
-                return Math.sqrt(this.x * this.x + this.y * this.y)
+                return Math.sqrt(this.x * this.x + this.y * this.y);
             }
-        }
+        };
         //Alpha
         a = Math.asin(radius / pointDistance.length());
         //Beta
@@ -10879,7 +10872,7 @@ $(window).load(function() {
         T2 = {
             x: input.x + radius * -Math.sin(t),
             y: input.y + radius * Math.cos(t)
-        }
+        };
 
         eraseBackground();
 
