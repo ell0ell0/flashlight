@@ -10703,7 +10703,7 @@ $(window).load(function() {
     // ------------------------------------------------
 
     var pause; 
-    var yOffset = 1.35;
+    var yOffset = 1.25; 
 
     if( $(window).width() > 540 ) {
       pause = false;
@@ -10718,7 +10718,7 @@ $(window).load(function() {
 
     var center, inputPos, vector, p1, p2, p3, p4, radius, beamCenter;
 
-    var angle = 18;
+    var angle = 27;
 
     var pointDistance, a, b, t, T1, T2;
 
