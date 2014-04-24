@@ -10703,6 +10703,7 @@ $(window).load(function() {
     // ------------------------------------------------
 
     var pause;
+    var yOffset = 1.2;
 
     if( $(window).width() > 540 ) {
       pause = false;
@@ -10723,7 +10724,7 @@ $(window).load(function() {
 
     center = { 
       x: context.canvas.width/2,
-      y: $(window).height() + window.pageYOffset
+      y: $(window).height()/yOffset + window.pageYOffset
     };
 
     inputPos = {
@@ -10761,8 +10762,8 @@ $(window).load(function() {
     window.onscroll = function() {
       waitForFinalEvent(function(){
         center = { 
-          x: context.canvas.width/2,
-          y: $(window).height() + window.pageYOffset
+          x: context.canvas.width/2, 
+          y: $(window).height()/yOffset + window.pageYOffset
         };
         drawShapes(inputPos);
       });
@@ -10772,7 +10773,7 @@ $(window).load(function() {
 
       center = { 
         x: context.canvas.width/2,
-        y: $(window).height() + window.pageYOffset
+        y: $(window).height()/yOffset + window.pageYOffset
       };
 
       inputPos.x = event.pageX;
@@ -10784,7 +10785,7 @@ $(window).load(function() {
       //e.preventDefault();
       center = { 
         x: context.canvas.width/2,
-        y: $(window).height() + window.pageYOffset
+        y: $(window).height()/yOffset + window.pageYOffset
       };
       
       var touch = e.touches[0];
@@ -10809,7 +10810,7 @@ $(window).load(function() {
 
         center = { 
           x: context.canvas.width/2,
-          y: context.canvas.height 
+          y: context.canvas.height/yOffset
         };
         drawShapes(inputPos);
 
