@@ -10773,7 +10773,7 @@ $(window).load(function() {
     });
 
     document.addEventListener('touchmove', function(e) {
-      //e.preventDefault();
+      e.preventDefault();
       center = { 
         x: context.canvas.width/2,
         y: $(window).height()/2 + window.pageYOffset
