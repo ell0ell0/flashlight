@@ -10763,16 +10763,30 @@ $(window).load(function() {
         x: context.canvas.width/2,
         y: $(window).height()/2 + window.pageYOffset
       };
+      drawShapes(inputPos); 
     });
 
     $( window ).mousemove(function( event ) {
 
       inputPos.x = event.pageX;
-      inputPos.y = event.pageY;
+      inputPos.y = event.pageY; 
       drawShapes(inputPos);
     });
 
     document.addEventListener('touchstart', function(e) {
+      //e.preventDefault();
+      center = { 
+        x: context.canvas.width/2,
+        y: $(window).height()/2 + window.pageYOffset
+      };
+      
+      var touch = e.touches[0];
+      inputPos.x = touch.pageX;
+      inputPos.y = touch.pageY;
+      drawShapes(inputPos); 
+    }, false); 
+
+    document.addEventListener('touchend', function(e) {
       //e.preventDefault();
       center = { 
         x: context.canvas.width/2,
