@@ -10702,8 +10702,8 @@ $(window).load(function() {
     // Initialize
     // ------------------------------------------------
 
-    var pause;
-    var yOffset = 1.5;
+    var pause; 
+    var yOffset = 1.35;
 
     if( $(window).width() > 540 ) {
       pause = false;
