@@ -10703,7 +10703,7 @@ $(window).load(function() {
     // ------------------------------------------------
 
     var pause;
-    var yOffset = 1.2;
+    var yOffset = 1.5;
 
     if( $(window).width() > 540 ) {
       pause = false;
