@@ -10772,8 +10772,8 @@ $(window).load(function() {
       drawShapes(inputPos);
     });
 
-    document.addEventListener('touchmove', function(e) {
-      e.preventDefault();
+    document.addEventListener('touchstart', function(e) {
+      //e.preventDefault();
       center = { 
         x: context.canvas.width/2,
         y: $(window).height()/2 + window.pageYOffset
