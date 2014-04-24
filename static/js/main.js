@@ -10708,7 +10708,7 @@ $(window).load(function() {
     if( $(window).width() > 540 ) {
       pause = false;
     } else {
-      pause = true;
+      pause = true; 
     }
 
     var canvas =  document.querySelector('#canvas'),
@@ -10718,7 +10718,7 @@ $(window).load(function() {
 
     var center, inputPos, vector, p1, p2, p3, p4, radius, beamCenter;
 
-    var angle = 27;
+    var angle = 22.5;
 
     var pointDistance, a, b, t, T1, T2;
 
