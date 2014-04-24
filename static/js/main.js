@@ -10692,7 +10692,7 @@ $(document).ready( function() {
     w.attachEvent("onresize", callMedia);
   }
 })(this);
-$( document ).ready(function() {  
+$(window).load(function() {
 
   // if (Modernizr.canvas) {
 
