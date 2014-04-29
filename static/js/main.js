@@ -10782,6 +10782,18 @@ $(window).load(function() {
       drawShapes(inputPos);
     }); 
 
+    $( window ).mousemove(function(e) {
+      center = { 
+        x: context.canvas.width/2,
+        y: $(window).height()/yOffset + window.pageYOffset
+      };
+      inputPos = {
+        x: e.pageX,
+        y: e.pageY
+      };
+      drawShapes(inputPos); 
+    });
+
     document.addEventListener('touchstart', function(e) {
       //e.preventDefault();
       center = { 
