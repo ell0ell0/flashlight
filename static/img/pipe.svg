@@ -3,9 +3,12 @@
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
 <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 	 width="1200px" height="94px" viewBox="0 0 1200 94" enable-background="new 0 0 1200 94" xml:space="preserve">
-<rect x="0.934" y="9.917" fill="#BABBBD" width="1200" height="76"/>
-<rect x="0.934" y="66.234" fill="#919395" width="1200" height="19.682"/>
-<rect x="786.24" y="0.917" fill="#BABBBD" width="16.803" height="94"/>
-<rect x="784.643" y="0.917" fill="#919395" width="8.4" height="94"/>
-<rect x="803.043" y="0.917" fill="#919395" width="1.792" height="94"/>
+<g>
+	<rect x="0.934" y="8.667" fill="#BABBBD" width="1200" height="76"/>
+	<rect x="0.934" y="64.984" fill="#919395" width="1200" height="19.682"/>
+	<rect x="793.043" y="-0.333" fill="#BABBBD" width="10" height="94"/>
+	<polygon fill="#BABBBD" points="784.643,8.667 793.043,-0.333 793.043,93.667 784.643,84.666 	"/>
+	<polygon fill="#919395" points="784.643,64.984 793.043,64.984 793.043,93.667 784.643,84.666 	"/>
+	<polygon fill="#919395" points="803.043,-0.333 811.443,8.667 811.443,84.666 803.043,93.667 	"/>
+</g>
 </svg>
